@@ -1,14 +1,11 @@
 package com.example.android.newsapp;
 
+import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -39,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //initializing listview and hero list
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         newsList = new ArrayList<>();
@@ -53,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
 
         //this method will fetch and parse the data
         loadNewsList();
+
+
+
+
     }
 
     private void loadNewsList() {
@@ -84,11 +86,11 @@ public class MainActivity extends AppCompatActivity {
                             //now looping through all the elements of the json array
                             for (int i = 0; i < newsArray.length(); i++) {
                                 //getting the json object of the particular index inside the array
-                                JSONObject heroObject = newsArray.getJSONObject(i);
+                                JSONObject newsObject = newsArray.getJSONObject(i);
 
                                 //creating a newsobject and giving them the values from json object
-                                News news = new News(heroObject.getString("webTitle"),
-                                        heroObject.getString("sectionName"));
+                                News news = new News(newsObject.getString("webTitle"),
+                                        newsObject.getString("sectionName"),newsObject.getString("webUrl"));
 
                                 //adding the news to newslist
                                 newsList.add(news);
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                             //adding the adapter to listview
                             recyclerView.setAdapter(adapter);
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
