@@ -4,54 +4,60 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.android.newsapp.News;
+import com.example.android.newsapp.R;
 
 import java.util.List;
 
-public class NewsAdapter extends ArrayAdapter<News> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Viewholder> {
 
-    // View lookup cache
-    private static class ViewHolder {
-        TextView webTitle;
-        TextView sectionName;
-    }
-
-    //the hero list that will be displayed
+    private Context context;
     private List<News> newsList;
 
-    //the context object
-    private Context mCtx;
-
-    public NewsAdapter( List<News> news, Context context) {
-        super(context,R.layout.list_item,news);
-        this.mCtx = context;
-        this.newsList = news;
+    // Constructor
+    public NewsAdapter(List<News> newsList, Context context) {
+        this.context = context;
+        this.newsList = newsList;
     }
+
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
-        News news = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
-        ViewHolder viewHolder; // view lookup cache stored in tag
-        if (convertView == null) {
-            // If there's no view to re-use, inflate a brand new view for row
-            viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(mCtx);
-            convertView = inflater.inflate(R.layout.list_item, parent, false);
-            viewHolder.webTitle= (TextView) convertView.findViewById(R.id.webTitle);
-            viewHolder.sectionName = (TextView) convertView.findViewById(R.id.sectionName);
-            // Cache the viewHolder object inside the fresh view
-            convertView.setTag(viewHolder);
-        } else {
-            // View is being recycled, retrieve the viewHolder object from tag
-            viewHolder = (ViewHolder) convertView.getTag();
+    public NewsAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // to inflate the layout for each item of recycler view.
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout, parent, false);
+        return new Viewholder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull NewsAdapter.Viewholder holder, int position) {
+        // to set data to textview and imageview of each card layout
+        News news = newsList.get(position);
+        holder.web_title.setText(news.getWebTitle());
+        holder.section_name.setText(news.getSectionName());
+    }
+
+    @Override
+    public int getItemCount() {
+        // this method is used for showing number
+        // of card items in recycler view.
+        return newsList.size();
+    }
+
+    // View holder class for initializing of
+    // your views such as TextView and Imageview.
+    public class Viewholder extends RecyclerView.ViewHolder {
+        private TextView web_title, section_name;
+
+        public Viewholder(@NonNull View itemView) {
+            super(itemView);
+            web_title = itemView.findViewById(R.id.webTitle);
+            section_name = itemView.findViewById(R.id.sectionName);
         }
-        // Populate the data from the data object via the viewHolder object
-        // into the template view.
-        viewHolder.sectionName.setText(news.getSectionName());
-        viewHolder.webTitle.setText(news.getWebTitle());
-        // Return the completed view to render on screen
-        return convertView;
     }
 }

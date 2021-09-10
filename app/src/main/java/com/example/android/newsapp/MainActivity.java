@@ -1,6 +1,8 @@
 package com.example.android.newsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -26,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static String BASE_URL ="https://content.guardianapis.com/search?api-key=test";
 
-    //listview object
-    ListView listView;
+    //Recyclerview object
+    private RecyclerView recyclerView;
 
     //the hero list where we will store all the hero objects after parsing json
     List<News> newsList;
@@ -38,27 +40,35 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //initializing listview and hero list
-        listView = (ListView) findViewById(R.id.listView);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         newsList = new ArrayList<>();
+
+        // below line is for setting a layout manager for our recycler view.
+        // here we are creating vertical list so we will provide orientation as vertical
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
+                false);
+
+        // in below two lines we are setting layoutmanager and adapter to our recycler view.
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         //this method will fetch and parse the data
         loadNewsList();
     }
 
     private void loadNewsList() {
-        //getting the progressbar
-        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
-        //making the progressbar visible
-        progressBar.setVisibility(View.VISIBLE);
+//        //getting the progressbar
+//        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+//
+//        //making the progressbar visible
+//        progressBar.setVisibility(View.VISIBLE);
 
         //creating a string request to send request to the url
         StringRequest stringRequest = new StringRequest(Request.Method.GET, BASE_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //hiding the progressbar after completion
-                        progressBar.setVisibility(View.INVISIBLE);
+//                        //hiding the progressbar after completion
+//                        progressBar.setVisibility(View.INVISIBLE);
 
 
                         try {
@@ -88,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                             NewsAdapter adapter = new NewsAdapter(newsList, getApplicationContext());
 
                             //adding the adapter to listview
-                            listView.setAdapter(adapter);
+                            recyclerView.setAdapter(adapter);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
