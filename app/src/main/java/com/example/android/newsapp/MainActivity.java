@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Relative Layout To store No Internet Connection Layout.
     RelativeLayout noconnection;
+    //Progress Bar for showing status
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
 
         noconnection = findViewById(R.id.no_internet_view);
         noconnection.setVisibility(View.GONE);
-
         relativeLayout = findViewById(R.id.empty_stateview);
-
         relativeLayout.setVisibility(View.GONE);
+         progressBar = findViewById(R.id.progress_circular);
+       progressBar.setVisibility(View.VISIBLE);
 
 
         //initializing listview and hero list
@@ -83,15 +86,12 @@ public class MainActivity extends AppCompatActivity {
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
 
-        if (!isConnected)
-            noconnection.setVisibility(View.VISIBLE);
-        else {
-//        //getting the progressbar
-//        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-//
-//        //making the progressbar visible
-//        progressBar.setVisibility(View.VISIBLE);
 
+        if (!isConnected) {
+            noconnection.setVisibility(View.VISIBLE);
+        }
+        else {
+            
             //creating a string request to send request to the url
             StringRequest stringRequest = new StringRequest(Request.Method.GET, BASE_URL,
                     new Response.Listener<String>() {
@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                                 //adding the adapter to listview
                                 recyclerView.setAdapter(adapter);
 
+
                                 if (newsList.isEmpty()) {
 
                                     relativeLayout.setVisibility(View.VISIBLE);
@@ -156,5 +157,7 @@ public class MainActivity extends AppCompatActivity {
             //adding the string request to request queue
             requestQueue.add(stringRequest);
         }
+
+        progressBar.setVisibility(View.GONE);
     }
 }
