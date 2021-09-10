@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">News App</string>
+
+    <string name="web_title">Australia Covid live news update: questions over NSW lockdown roadmap.</string>
+
+    <string name="section_name">Australia news</string>
 </resources>
