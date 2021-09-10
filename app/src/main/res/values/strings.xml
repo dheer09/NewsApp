@@ -6,4 +6,5 @@
     <string name="section_name">Australia news</string>
 
     <string name = "empty_view_title_text">Oops...No Data Found</string>
+    <string name="no_connection_title_text">Please Check Your Connection</string>
 </resources>
