@@ -4,4 +4,6 @@
     <string name="web_title">Australia Covid live news update: questions over NSW lockdown roadmap.</string>
 
     <string name="section_name">Australia news</string>
+
+    <string name = "empty_view_title_text">Oops...No Data Found</string>
 </resources>

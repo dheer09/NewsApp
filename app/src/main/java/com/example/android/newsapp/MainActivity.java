@@ -1,6 +1,8 @@
 package com.example.android.newsapp;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static String BASE_URL ="https://content.guardianapis.com/search?api-key=test";
+//    private static String BASE_URL = "https://content.guardianapis.com/search?q=aadsfndjfnkjdn&api-key=test";
 
     //Recyclerview object
     private RecyclerView recyclerView;
@@ -31,10 +34,16 @@ public class MainActivity extends AppCompatActivity {
     //the hero list where we will store all the hero objects after parsing json
     List<News> newsList;
 
+    RelativeLayout relativeLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        relativeLayout  = findViewById(R.id.empty_stateview);
+
+        relativeLayout.setVisibility(View.GONE);
 
 
         //initializing listview and hero list
@@ -101,6 +110,13 @@ public class MainActivity extends AppCompatActivity {
 
                             //adding the adapter to listview
                             recyclerView.setAdapter(adapter);
+
+                            if(newsList.isEmpty())
+                            {
+
+                                relativeLayout.setVisibility(View.VISIBLE);
+                                recyclerView.setVisibility(View.GONE);
+                            }
 
 
                         } catch (JSONException e) {
