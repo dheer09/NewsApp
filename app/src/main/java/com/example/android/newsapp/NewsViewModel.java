@@ -22,7 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsViewModel extends ViewModel {
-    private static final String BASE_URL = "https://content.guardianapis.com/search?api-key=test";
+      private static final String BASE_URL = "https://content.guardianapis.com/search?api-key=test";
+//    private static final String BASE_URL = "https://content.guardianapis.com/search?q=abdhsuh&api-key=test";
 
     //This is the data to be fetched .
     private MutableLiveData<List<News>> newsList ;

@@ -1,7 +1,9 @@
 package com.example.android.newsapp;
 
 
-
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import android.view.View;
@@ -52,38 +54,32 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
 
-        //        ConnectivityManager cm =
-//                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-//
-//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-//        boolean isConnected = activeNetwork != null &&
-//                activeNetwork.isConnectedOrConnecting();
+        ConnectivityManager cm =
+                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        // below line is for setting a layout manager for our recycler view.
-        // here we are creating vertical list so we will provide orientation as vertical
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
 
 
-        // in below two lines we are setting layoutmanager and adapter to our recycler view.
-
-
-//        if (!isConnected) {
-//            noconnection.setVisibility(View.VISIBLE);
-//        } else {
+        if (!isConnected) {
+            noconnection.setVisibility(View.VISIBLE);
+        } else {
 
             NewsViewModel model = new NewsViewModel(getApplicationContext());
 
             model.getNews().observe(this, heroList -> {
-                NewsAdapter adapter = new NewsAdapter(heroList,MainActivity.this);
+                NewsAdapter adapter = new NewsAdapter(heroList, MainActivity.this);
                 recyclerView.setAdapter(adapter);
-                if(heroList.isEmpty())
-                {
+                if (heroList.isEmpty()) {
                     relativeLayout.setVisibility(View.VISIBLE);
                 }
             });
 
-        progressBar.setVisibility(View.GONE);
 
         }
+        progressBar.setVisibility(View.GONE);
     }
+}
 
 
