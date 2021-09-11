@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="10dp"
+
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
@@ -28,7 +28,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/parentRelative">
+        android:id="@+id/parentRelative"
+        android:background="@drawable/bg_white_gradient">
 
         <!--ImageVIew to display our Course Image-->
         <ImageView
@@ -51,8 +52,9 @@
             android:layout_toEndOf="@id/idIVCourseImage"
             tools:text="@string/section_name"
             android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold|italic" />
+            android:textSize="24sp"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="bold" />
 
         <!--Text VIew to display News-->
 
@@ -64,12 +66,12 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/idIVCourseImage"
-            android:fontFamily="sans-serif-condensed-medium"
+            android:fontFamily="sans-serif-thin"
             android:textSize="14sp"
             android:maxLines="4"
-            android:textColor="#C3000000"
+            android:textColor="#000000"
             android:drawablePadding="2dp"
             tools:text="@string/web_title"
-             />
+            />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

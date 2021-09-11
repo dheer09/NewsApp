@@ -9,12 +9,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_white_gradient"/>
 
     <RelativeLayout
         android:id="@+id/empty_stateview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/empty_title_text"
@@ -40,7 +42,8 @@
     <RelativeLayout
         android:id="@+id/no_internet_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/no_connection_title_text"
