@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/parentRelative"
-        android:background="@drawable/bg_white_gradient">
+        android:background="@color/white">
 
         <!--ImageVIew to display our Course Image-->
         <ImageView
