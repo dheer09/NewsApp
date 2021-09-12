@@ -4,13 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_white_gradient"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/trending"
+        android:layout_width="226dp"
+        android:layout_height="54dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:text="Trending"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="bold"
+        android:textAppearance="@style/header"
+        android:gravity="top"
+        />
+
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/trending"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_white_gradient"/>
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:id="@+id/empty_stateview"

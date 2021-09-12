@@ -1,6 +1,9 @@
 package com.example.android.newsapp;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
@@ -26,7 +29,7 @@ public class NewsViewModel extends ViewModel {
 //    private static final String BASE_URL = "https://content.guardianapis.com/search?q=abdhsuh&api-key=test";
 
     //This is the data to be fetched .
-    private MutableLiveData<List<News>> newsList ;
+    public MutableLiveData<List<News>> newsList ;
     private  Context context;
 
     public NewsViewModel(Context context) {
@@ -34,11 +37,14 @@ public class NewsViewModel extends ViewModel {
     }
 
     public LiveData<List<News>> getNews() {
-        //if the list is null
+
         if (newsList == null) {
             newsList = new MutableLiveData<List<News>>();
             //we will load it asynchronously from server in this method
             loadNews();
+            boolean checkList = (newsList == null);
+
+            Log.v("NewsViewModel","List state: " + checkList);
         }
 
         //finally we will return the list
