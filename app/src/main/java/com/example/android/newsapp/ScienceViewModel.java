@@ -1,14 +1,11 @@
 package com.example.android.newsapp;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,19 +17,20 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsViewModel extends ViewModel {
-      private static final String BASE_URL = "https://content.guardianapis.com/search?api-key=test";
+public class ScienceViewModel extends ViewModel{
+    private static final String BASE_URL = "https://content.guardianapis.com/search?q=science&api-key=test";
 //    private static final String BASE_URL = "https://content.guardianapis.com/search?q=abdhsuh&api-key=test";
 
     //This is the data to be fetched .
     public MutableLiveData<List<News>> newsList ;
-    private  Context context;
+    private Context context;
 
-    public NewsViewModel(Context context) {
+    public ScienceViewModel(Context context) {
         this.context = context;
     }
 
@@ -51,10 +49,10 @@ public class NewsViewModel extends ViewModel {
         return newsList;
     }
 
-        //Pass connectivity status as a boolean.//Pass Context from MainActivity
+    //Pass connectivity status as a boolean.//Pass Context from MainActivity
     private void loadNews() {
 
-         List<News> newsList1 = new ArrayList<>();
+        List<News> newsList1 = new ArrayList<>();
         // depending on the action, do necessary business logic calls and update the
         // userLiveData.
         //creating a string request to send request to the url
@@ -110,5 +108,4 @@ public class NewsViewModel extends ViewModel {
         //adding the string request to request queue
         requestQueue.add(stringRequest);
     }
-    }
-
+}

@@ -10,15 +10,17 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 //import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
-import java.util.List;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,46 +41,40 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        noconnection = findViewById(R.id.no_internet_view);
-        noconnection.setVisibility(View.GONE);
-        relativeLayout = findViewById(R.id.empty_stateview);
-        relativeLayout.setVisibility(View.GONE);
-        progressBar = findViewById(R.id.progress_circular);
-        progressBar.setVisibility(View.VISIBLE);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        ViewPager2 viewPager2 = findViewById(R.id.viewPager);
 
+        // find the viewPager that will allow the user to swipe between fragments.
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this);
+        viewPager2.setAdapter(categoryAdapter);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
-                false);
-        //initializing listview and hero list
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setHasFixedSize(true);
-
-        ConnectivityManager cm =
-                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-
-
-        if (!isConnected) {
-            noconnection.setVisibility(View.VISIBLE);
-        } else {
-
-            NewsViewModel model = new NewsViewModel(getApplicationContext());
-
-            model.getNews().observe(this, heroList -> {
-                NewsAdapter adapter = new NewsAdapter(heroList, MainActivity.this);
-                recyclerView.setAdapter(adapter);
-                if (heroList.isEmpty()) {
-                    relativeLayout.setVisibility(View.VISIBLE);
+        // creating tabLayout
+        new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull @NotNull TabLayout.Tab tab, int position) {
+                if(position == 0){
+                    tab.setText("Trending");
                 }
-            });
-
-
-        }
-        progressBar.setVisibility(View.GONE);
+                if(position == 1){
+                    tab.setText("Business");
+                }
+                if(position == 2){
+                    tab.setText("Technology");
+                }
+                if(position == 3){
+                    tab.setText("Entertainment");
+                }
+                if(position == 4){
+                    tab.setText("Sports");
+                }
+                if(position == 5){
+                    tab.setText("Science");
+                }
+                if(position == 6){
+                    tab.setText("Health");
+                }
+            }
+        }).attach();
     }
 }
 
